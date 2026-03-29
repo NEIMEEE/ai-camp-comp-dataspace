@@ -1,0 +1,47 @@
+# Problématique 3 - Ai-Camp 2.03.3
+
+## 🎯 Objectif
+Prédire **la température et la précipitation** à partir des données météorologiques et spatiales fournies par la compétition.  
+Le but est de générer un fichier de soumission pour Kaggle avec des prédictions précises pour chaque localisation et chaque heure.
+
+## ⚙️ Méthodes utilisées
+- Langages : Python (Pandas, Numpy, LightGBM, PyTorch)  
+- Modèles :
+  - **LightGBM** pour la prédiction de la température et de la pluie (classification + regression)  
+  - **GRU spatiotemporelle** pour capturer les interactions temporelles et spatiales
+- **Ensemble** final combinant LightGBM et GRU pour améliorer la précision
+- Prétraitements :
+  - Features temporelles cycliques (heure, jour, mois, saison)  
+  - Features spatiales (latitude, longitude, zones climatiques)  
+  - Interactions météo × localisation  
+  - Standardisation des données pour GRU
+
+## 📊 Résultats
+- **LightGBM :**  
+  - MAE Température : 0.3964  
+  - MAE Précipitation : 0.3115  
+  - Weighted MAE (WMCAE) : 0.3327
+- **GRU :**  
+  - 7,803,906 paramètres  
+  - Entraînement sur 50 epochs  
+  - Loss finale : 0.05296
+- **Ensemble LightGBM + GRU :**  
+  - Température : min=6.4, max=38.2, mean=20.9  
+  - Précipitation : min=0.0, max=36.54, mean=0.5237  
+  - % précipitation nulle : 52.34%
+- Nombre de lignes de soumission : 105,984
+
+## 🗂️ Structure des fichiers
+- `problematique3.ipynb` : Notebook principal avec tout le code et les étapes  
+- `submission.csv` : Fichier généré pour la soumission Kaggle
+
+## 🔗 Dataset
+Les fichiers utilisés sont présents dans Kaggle :  
+- `train.csv`  
+- `test.csv`  
+- `sample_submission.csv`
+
+## 📝 Notes
+- Environnement GPU recommandé pour GRU pour accélérer l’entraînement  
+- L’ensemble LightGBM + GRU améliore la performance par rapport à chaque modèle pris séparément  
+- Les features sont fortement basées sur la météo, le temps cyclique et les interactions spatiales
