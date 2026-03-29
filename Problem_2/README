@@ -1,0 +1,27 @@
+# Problématique 2 - Ai-Camp 2.03.1
+
+## 🎯 Objectif
+Résoudre la problématique proposée dans la compétition **Ai-Camp 2.03.1** sur Kaggle.  
+Le but est d'obtenir le meilleur score possible sur le dataset fourni via Kaggle.
+
+## ⚙️ Méthodes utilisées
+- Langage : Python
+- Environnement : TPU v5e-8
+- Approche : Notebook de solution optimisée pour la compétition
+- Runtime : 10 minutes
+
+## 📊 Résultats
+- Score privé : 0.95432
+- Meilleur score atteint : 0.95432
+- Version : 1
+
+## 🗂️ Structure des fichiers
+- `problematique2_sol.ipynb` : Notebook contenant tout le code et les étapes de résolution
+- `output/` : Fichier de sortie généré par le notebook (soumission Kaggle)
+
+## 🔗 Dataset
+Le dataset utilisé est disponible sur Kaggle via la compétition : [Ai-Camp 2.03.1](https://www.kaggle.com/competitions/ai-camp-2-03/data)
+
+## 📝 Notes
+- Le notebook est privé sur Kaggle, mais peut être exécuté localement ou sur TPU pour reproduire les résultats.
+- Temps d’exécution sur TPU : 10 minutes
