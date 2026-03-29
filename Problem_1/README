@@ -1,0 +1,56 @@
+Description
+
+Ce projet consiste à classifier des images de plantes selon leur type de maladie.
+Il utilise PyTorch, le modèle pré-entraîné EfficientNet-B3, et des techniques d’augmentation de données ainsi que le TTA (Test-Time Augmentation) pour améliorer les prédictions.
+
+Environnement et GPU
+Python 3.x
+GPU recommandé pour l’entraînement
+Packages principaux :
+torch, torchvision, timm, pandas, numpy, scikit-learn, Pillow, tqdm
+
+Vérification du GPU :
+
+!nvidia-smi
+Structure des données
+Train : images classées par dossier (train/class_name/...)
+Test : images listées dans test.csv
+Label mapping : label2id et id2label
+Prétraitement et Transforms
+Redimensionnement et RandomCrop
+RandomHorizontal/Vertical Flip, Rotation
+ColorJitter et RandomGrayscale
+Normalisation et RandomErasing
+Séparation Train / Validation stratifiée
+Dataset & DataLoader
+PlantDataset retourne image et label pour l'entraînement, image et id pour le test
+Utilisation de WeightedRandomSampler pour équilibrer les classes
+DataLoaders :
+Train : batch_size=32, sampler pondéré
+Val & Test : batch_size=32, shuffle=False
+Modèle
+Base : efficientnet_b3 pré-entraîné (via timm)
+Nombre de classes dynamique selon le dataset
+Loss, Optimizer et Scheduler
+Loss : Focal Loss pondérée (gamma=2.0)
+Optimizer : AdamW (lr=1e-3, weight_decay=1e-4)
+Scheduler : CosineAnnealingLR
+AMP : Mixed Precision Training
+Entraînement
+Nombre d’epochs : 50
+F1-macro utilisé comme métrique principale
+Sauvegarde automatique du meilleur modèle selon Val F1
+Test-Time Augmentation (TTA)
+Utilisation de 3 transformations pour améliorer la robustesse des prédictions
+Moyenne des probabilités des différentes TTA
+Soumission
+Génération de submission.csv avec les colonnes id et label_id
+Option de soumission automatique sur Kaggle via l’API :
+api.competition_submit(
+    file_name='/content/submission.csv',
+    message='Ma soumission automatique',
+    competition='nom-de-la-competition'
+)
+Résultats
+Meilleur F1 sur validation affiché après entraînement
+TTA améliore légèrement la précision des prédictions
